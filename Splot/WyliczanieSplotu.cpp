@@ -1,23 +1,22 @@
 #include "WyliczanieSplotu.h"
 
 WyliczanieSplotu::WyliczanieSplotu(vector<long double>* vector_a, vector<int>* vector_t, const double v, const int m,
-                                   const int len) : vector_a_(vector_a), v_(v), m_(m), vector_t_(vector_t)
+                                   const int len) : vector_a_(vector_a), v_(v), m_(m), vector_t_(vector_t), len_(len)
 {
-  len_ = len;
 }
 
-void WyliczanieSplotu::WyliczanieStrumieniaZg³oszeñ(double* p, const double a, const int t, const double v)
+void WyliczanieSplotu::WyliczanieRozkladuZajetosci(double* p, const double a, const int t, const double v)
 {
   p[0] = 1;
 
-  long double tmp_p;
+  long double temp;
   for (auto n = 1; n <= v; n++)
   {
     if ((n - t) < 0)
-      tmp_p = 0;
+      temp = 0;
     else
-      tmp_p = p[n - t];
-    const auto suma_wew = (a * long double(t) * tmp_p);
+      temp = p[n - t];
+    const auto suma_wew = (a * long double(t) * temp);
     p[n] = (1 / long double(n)) * suma_wew;
   }
   cout << endl;
@@ -80,22 +79,20 @@ void WyliczanieSplotu::Blokada(double* splot, double* e, const double m, const d
     }
     cout << endl << "E[" << i << "] = " << e[i];
   }
-
-  system("pause");
 }
 
 void WyliczanieSplotu::Rozpocznij()
 {
   if (m_ == 1)
   {
-    WyliczanieStrumieniaZg³oszeñ(p1_, vector_a_->at(0), vector_t_->at(0), v_);
+    WyliczanieRozkladuZajetosci(p1_, vector_a_->at(0), vector_t_->at(0), v_);
     Normalizacja(p1_, pn1_, v_, 1);
     Blokada(p1_, e_, m_, v_, vector_t_);
   }
   else if (m_ == 2)
   {
-    WyliczanieStrumieniaZg³oszeñ(p1_, vector_a_->at(0), vector_t_->at(0), v_);
-    WyliczanieStrumieniaZg³oszeñ(p2_, vector_a_->at(1), vector_t_->at(1), v_);
+    WyliczanieRozkladuZajetosci(p1_, vector_a_->at(0), vector_t_->at(0), v_);
+    WyliczanieRozkladuZajetosci(p2_, vector_a_->at(1), vector_t_->at(1), v_);
     Normalizacja(p1_, pn1_, v_, 1);
     Normalizacja(p2_, pn2_, v_, 2);
 
@@ -105,9 +102,9 @@ void WyliczanieSplotu::Rozpocznij()
   }
   else if (m_ == 3)
   {
-    WyliczanieStrumieniaZg³oszeñ(p1_, vector_a_->at(0), vector_t_->at(0), v_);
-    WyliczanieStrumieniaZg³oszeñ(p2_, vector_a_->at(1), vector_t_->at(1), v_);
-    WyliczanieStrumieniaZg³oszeñ(p3_, vector_a_->at(2), vector_t_->at(2), v_);
+    WyliczanieRozkladuZajetosci(p1_, vector_a_->at(0), vector_t_->at(0), v_);
+    WyliczanieRozkladuZajetosci(p2_, vector_a_->at(1), vector_t_->at(1), v_);
+    WyliczanieRozkladuZajetosci(p3_, vector_a_->at(2), vector_t_->at(2), v_);
     Normalizacja(p1_, pn1_, v_, 1);
     Normalizacja(p2_, pn2_, v_, 2);
     Normalizacja(p3_, pn3_, v_, 3);
@@ -120,10 +117,10 @@ void WyliczanieSplotu::Rozpocznij()
   }
   else if (m_ == 4)
   {
-    WyliczanieStrumieniaZg³oszeñ(p1_, vector_a_->at(0), vector_t_->at(0), v_);
-    WyliczanieStrumieniaZg³oszeñ(p2_, vector_a_->at(1), vector_t_->at(1), v_);
-    WyliczanieStrumieniaZg³oszeñ(p3_, vector_a_->at(2), vector_t_->at(2), v_);
-    WyliczanieStrumieniaZg³oszeñ(p4_, vector_a_->at(3), vector_t_->at(3), v_);
+    WyliczanieRozkladuZajetosci(p1_, vector_a_->at(0), vector_t_->at(0), v_);
+    WyliczanieRozkladuZajetosci(p2_, vector_a_->at(1), vector_t_->at(1), v_);
+    WyliczanieRozkladuZajetosci(p3_, vector_a_->at(2), vector_t_->at(2), v_);
+    WyliczanieRozkladuZajetosci(p4_, vector_a_->at(3), vector_t_->at(3), v_);
     Normalizacja(p1_, pn1_, v_, 1);
     Normalizacja(p2_, pn2_, v_, 2);
     Normalizacja(p3_, pn3_, v_, 3);
@@ -139,11 +136,11 @@ void WyliczanieSplotu::Rozpocznij()
   }
   else if (m_ == 5)
   {
-    WyliczanieStrumieniaZg³oszeñ(p1_, vector_a_->at(0), vector_t_->at(0), v_);
-    WyliczanieStrumieniaZg³oszeñ(p2_, vector_a_->at(1), vector_t_->at(1), v_);
-    WyliczanieStrumieniaZg³oszeñ(p3_, vector_a_->at(2), vector_t_->at(2), v_);
-    WyliczanieStrumieniaZg³oszeñ(p4_, vector_a_->at(3), vector_t_->at(3), v_);
-    WyliczanieStrumieniaZg³oszeñ(p5_, vector_a_->at(4), vector_t_->at(4), v_);
+    WyliczanieRozkladuZajetosci(p1_, vector_a_->at(0), vector_t_->at(0), v_);
+    WyliczanieRozkladuZajetosci(p2_, vector_a_->at(1), vector_t_->at(1), v_);
+    WyliczanieRozkladuZajetosci(p3_, vector_a_->at(2), vector_t_->at(2), v_);
+    WyliczanieRozkladuZajetosci(p4_, vector_a_->at(3), vector_t_->at(3), v_);
+    WyliczanieRozkladuZajetosci(p5_, vector_a_->at(4), vector_t_->at(4), v_);
     Normalizacja(p1_, pn1_, v_, 1);
     Normalizacja(p2_, pn2_, v_, 2);
     Normalizacja(p3_, pn3_, v_, 3);

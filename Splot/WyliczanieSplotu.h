@@ -7,7 +7,7 @@ class WyliczanieSplotu
 {
 public:
   WyliczanieSplotu(vector<long double>* vector_a, vector<int>* vector_t, double v, int m, int len);
-  static void WyliczanieStrumieniaZg³oszeñ(double* p, double a, int t, double v);
+  static void WyliczanieRozkladuZajetosci(double* p, double a, int t, double v);
   static void LiczSplot(double* a, double* b, double* c, int len);
   static void Normalizacja(double* p, double* pn, double v, int klasa);
   static void Blokada(double* splot, double* e, double m, double v, vector<int>* vector_t);
