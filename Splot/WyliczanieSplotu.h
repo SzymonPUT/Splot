@@ -6,12 +6,12 @@ using namespace std;
 class WyliczanieSplotu
 {
 public:
-    WyliczanieSplotu(vector<long double>* vector_a, vector<int>* vector_t, double v, int m, int len_a, int len_b);
-    static void WyliczanieStrumieniaZg³oszeñ(double* p, double a, int t, double v);
-    static void LiczSplot(double* a, double* b, int len_a, int len_b, double* c);
-    static void Normalizacja(double* p, double* pn, double v, int klasa);
-    static void Blokada(double* splot, double* e, double m, double v, vector<int>* vector_t);
-    void Rozpocznij();
+  WyliczanieSplotu(vector<long double>* vector_a, vector<int>* vector_t, double v, int m, int len);
+  static void WyliczanieStrumieniaZg³oszeñ(double* p, double a, int t, double v);
+  static void LiczSplot(double* a, double* b, double* c, int len);
+  static void Normalizacja(double* p, double* pn, double v, int klasa);
+  static void Blokada(double* splot, double* e, double m, double v, vector<int>* vector_t);
+  void Rozpocznij();
 
 private:
   double p1_[10000] = {};
@@ -39,9 +39,8 @@ private:
   double e_[10000] = {};
 
   vector<long double>* vector_a_;
-  double v_; 
+  double v_;
   int m_;
   vector<int>* vector_t_;
-  int len_a_;
-  int len_b_;
+  int len_;
 };

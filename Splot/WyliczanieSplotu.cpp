@@ -1,10 +1,9 @@
 #include "WyliczanieSplotu.h"
 
 WyliczanieSplotu::WyliczanieSplotu(vector<long double>* vector_a, vector<int>* vector_t, const double v, const int m,
-                                   const int len_a,
-                                   const int len_b) : vector_a_(vector_a), v_(v), m_(m), vector_t_(vector_t),
-                                                      len_a_(len_a), len_b_(len_b)
+                                   const int len) : vector_a_(vector_a), v_(v), m_(m), vector_t_(vector_t)
 {
+  len_ = len;
 }
 
 void WyliczanieSplotu::WyliczanieStrumieniaZg³oszeñ(double* p, const double a, const int t, const double v)
@@ -24,20 +23,20 @@ void WyliczanieSplotu::WyliczanieStrumieniaZg³oszeñ(double* p, const double a, c
   cout << endl;
 }
 
-void WyliczanieSplotu::LiczSplot(double* a, double* b, const int len_a, const int len_b, double* c)
+void WyliczanieSplotu::LiczSplot(double* a, double* b, double* c, const int len)
 {
   int i, j, i1;
   double tmp;
 
-  const auto nconv = len_a + len_b - 1;
+  const auto nconv = 2 * len - 1;
 
   for (i = 0; i < nconv; i++)
   {
     i1 = i;
     tmp = 0.0;
-    for (j = 0; j < len_b; j++)
+    for (j = 0; j < len; j++)
     {
-      if (i1 >= 0 && i1 < len_a)
+      if (i1 >= 0 && i1 < len)
         tmp = tmp + (a[i1] * b[j]);
 
       i1 = i1 - 1;
@@ -45,7 +44,7 @@ void WyliczanieSplotu::LiczSplot(double* a, double* b, const int len_a, const in
     }
   }
 
-  const auto amount = (len_a);
+  const auto amount = (len);
   cout << endl;
 
   for (auto k = 0; k < amount; k++)
@@ -100,7 +99,7 @@ void WyliczanieSplotu::Rozpocznij()
     Normalizacja(p1_, pn1_, v_, 1);
     Normalizacja(p2_, pn2_, v_, 2);
 
-    LiczSplot(pn1_, pn2_, len_a_, len_b_, splot12_);
+    LiczSplot(pn1_, pn2_, splot12_, len_);
     Normalizacja(splot12_, splot12_n_, v_, 1);
     Blokada(splot12_n_, e_, m_, v_, vector_t_);
   }
@@ -113,9 +112,9 @@ void WyliczanieSplotu::Rozpocznij()
     Normalizacja(p2_, pn2_, v_, 2);
     Normalizacja(p3_, pn3_, v_, 3);
 
-    LiczSplot(pn1_, pn2_, len_a_, len_b_, splot12_);
+    LiczSplot(pn1_, pn2_, splot12_, len_);
     Normalizacja(splot12_, splot12_n_, v_, 1);
-    LiczSplot(splot12_n_, pn3_, len_a_, len_b_, splot123_);
+    LiczSplot(splot12_n_, pn3_, splot123_, len_);
     Normalizacja(splot123_, splot123_n_, v_, 1);
     Blokada(splot123_n_, e_, m_, v_, vector_t_);
   }
@@ -130,11 +129,11 @@ void WyliczanieSplotu::Rozpocznij()
     Normalizacja(p3_, pn3_, v_, 3);
     Normalizacja(p4_, pn4_, v_, 4);
 
-    LiczSplot(pn1_, pn2_, len_a_, len_b_, splot12_);
+    LiczSplot(pn1_, pn2_, splot12_, len_);
     Normalizacja(splot12_, splot12_n_, v_, 1);
-    LiczSplot(splot12_n_, pn3_, len_a_, len_b_, splot123_);
+    LiczSplot(splot12_n_, pn3_, splot123_, len_);
     Normalizacja(splot123_, splot123_n_, v_, 1);
-    LiczSplot(splot123_n_, pn4_, len_a_, len_b_, splot1234_);
+    LiczSplot(splot123_n_, pn4_, splot1234_, len_);
     Normalizacja(splot1234_, splot1234_n_, v_, 1);
     Blokada(splot1234_n_, e_, m_, v_, vector_t_);
   }
@@ -151,13 +150,13 @@ void WyliczanieSplotu::Rozpocznij()
     Normalizacja(p4_, pn4_, v_, 4);
     Normalizacja(p5_, pn5_, v_, 5);
 
-    LiczSplot(pn1_, pn2_, len_a_, len_b_, splot12_);
+    LiczSplot(pn1_, pn2_, splot12_, len_);
     Normalizacja(splot12_, splot12_n_, v_, 1);
-    LiczSplot(splot12_n_, pn3_, len_a_, len_b_, splot123_);
+    LiczSplot(splot12_n_, pn3_, splot123_, len_);
     Normalizacja(splot123_, splot123_n_, v_, 1);
-    LiczSplot(splot123_n_, pn4_, len_a_, len_b_, splot1234_);
+    LiczSplot(splot123_n_, pn4_, splot1234_, len_);
     Normalizacja(splot1234_, splot1234_n_, v_, 1);
-    LiczSplot(splot1234_n_, pn5_, len_a_, len_b_, splot12345_);
+    LiczSplot(splot1234_n_, pn5_, splot12345_, len_);
     Normalizacja(splot12345_, splot12345_n_, v_, 1);
     Blokada(splot12345_n_, e_, m_, v_, vector_t_);
   }
