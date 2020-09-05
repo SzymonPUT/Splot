@@ -38,8 +38,7 @@ int main()
   }
   cout << endl;
 
-  const auto len_a = static_cast<int>(v + 1);
-  const auto len_b = static_cast<int>(v + 1);
-  WyliczanieSplotu* splot = new WyliczanieSplotu(&vector_a, &vector_t, v, m, len_a, len_b);
+  const auto len = static_cast<int>(v + 1);
+  auto splot = new WyliczanieSplotu(&vector_a, &vector_t, v, m, len);
   splot->Rozpocznij();
 }
